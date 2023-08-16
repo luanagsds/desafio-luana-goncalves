@@ -32,6 +32,36 @@ class CaixaDaLanchonete {
                 codigosDoPedido.push(codigo);
                 quantidadeDoPedido.push(quantidade);
             }
+    //         ### OUTRAS REGRAS
+    
+    // - Caso item extra seja informado num pedido que não tenha o respectivo item principal, apresentar mensagem "Item extra não pode ser pedido sem o principal".
+    // - Combos não são considerados como item principal.
+    // - É possível pedir mais de um item extra sem precisar de mais de um principal.
+            if(codigosDoPedido.includes('chantily') && !codigosDoPedido.includes('cafe')) {
+                return 'Item extra não pode ser pedido sem o principal';
+            }
+            if(codigosDoPedido.includes('queijo') && !codigosDoPedido.includes('sanduiche')) {
+                return 'Item extra não pode ser pedido sem o principal';
+            }
+    
+    // - Se não forem pedidos itens, apresentar mensagem "Não há itens no carrinho de compra!"
+            if(codigosDoPedido.length == 0) {
+                return 'Não há itens no carrinho de compra!';
+            }
+    // - Se a quantidade de itens for zero, apresentar mensagem "Quantidade inválida!".
+            if(quantidadeDoPedido.includes('0')) {
+                return 'Quantidade inválida!';
+            }
+    // - Se o código do item não existir, apresentar mensagem "Item inválido!"
+            for(let i = 0; i < codigosDoPedido.length; i++) {
+                if(!codigo.includes(codigosDoPedido[i])) {
+                    return 'Item inválido!';
+                }
+            }
+    // - Se a forma de pagamento não existir, apresentar mensagem "Forma de pagamento inválida!"
+            if(!formaDePagamento.includes(metodoDePagamento)) {
+                return 'Forma de pagamento inválida!';
+            }
     
             //Calcular o valor total
             for(let i = 0; i < codigosDoPedido.length; i++) {
